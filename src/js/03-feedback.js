@@ -1,5 +1,9 @@
+import throttle from "lodash.throttle";
+
+
 const contactFormEl = document.querySelector('.feedback-form');
 const userInfo = {};
+
 
 const fillContactFormFields = () => {
     try {
@@ -8,8 +12,6 @@ const fillContactFormFields = () => {
         if (userInfoFromLS === null) {
             return;
         };
-
-        console.log(userInfoFromLS);
 
         for (const prop in userInfoFromLS) {
             contactFormEl.elements[prop].value = userInfoFromLS[prop];
@@ -38,11 +40,18 @@ const onContactFormInput = event => {
 const onContactFormSubmit = event => {
     event.preventDefault();
 
+    if(event.target.email.value === "" || event.target.message.value === "") {
+        alert('Заповніть усі поля форми');
+    }
+
+    console.log(JSON.parse(localStorage.getItem("feedback-form-state")));
+
     contactFormEl.reset();
     localStorage.removeItem("feedback-form-state");
+    
 };
 
-contactFormEl.addEventListener('input', onContactFormInput);
+contactFormEl.addEventListener('input', throttle(onContactFormInput, 500));
 contactFormEl.addEventListener('submit', onContactFormSubmit);
 
 
