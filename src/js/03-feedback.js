@@ -15,6 +15,7 @@ const fillContactFormFields = () => {
 
         for (const prop in userInfoFromLS) {
             contactFormEl.elements[prop].value = userInfoFromLS[prop];
+            userInfo[prop] = userInfoFromLS[prop];
         }
 
     } catch (error) {
