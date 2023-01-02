@@ -46,8 +46,12 @@ const onContactFormSubmit = event => {
     }
 
     console.log(JSON.parse(localStorage.getItem("feedback-form-state")));
+    
 
     contactFormEl.reset();
+
+    userInfo.email = '';
+    userInfo.message = '';
     localStorage.removeItem("feedback-form-state");
     
 };
